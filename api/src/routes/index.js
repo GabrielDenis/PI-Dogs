@@ -88,10 +88,156 @@ router.post('/dogs', async (req, res) => {
     let temperamentDb = await Temperament.findAll({
         where: {name: temperament}
     })
-
+    
     createdDog.addTemperament(temperamentDb)
 
     res.status(200).send("Dog succefully created")
 })
 
+router.get('/temperaments', async (req, res) => {
+    let allDogs = await getApiInfo()
+    const temperaments = new Set()
+
+    allDogs.forEach(e => {
+        let dogTemps = e.temperament?.split(", ")
+        dogTemps?.forEach(el => {
+            temperaments.add(el)
+        })
+    });
+
+    for (let tempe of temperaments) {
+        Temperament.findOrCreate({
+            where: {name: tempe}
+        })
+    }
+
+    res.status(200).send("Temperaments succesfully created")
+})
+
 module.exports = router;
+
+
+const array = ['Stubborn',
+    'Curious',
+    'Playful',
+    'Adventurous',
+    'Active',
+    'Fun-loving',
+    'Aloof',
+    'Clownish',
+    'Dignified',
+    'Independent',
+    'Happy',
+    'Wild',
+    'Hardworking',
+    'Dutiful',
+    'Outgoing',
+    'Friendly',
+    'Alert',
+    'Confident',
+    'Intelligent',
+    'Courageous',
+    'Loyal',
+    'Brave',
+    'Docile',
+    'Responsive',
+    'Composed',
+    'Receptive',
+    'Faithful',
+    'Loving',
+    'Protective',
+    'Trainable',
+    'Responsible',
+    'Energetic',
+    'Gentle',
+    'Affectionate',
+    'Devoted',
+    'Assertive',
+    'Dominant',
+    'Strong Willed',
+    'Obedient',
+    'Reserved',
+    'Kind',
+    'Sweet-Tempered',
+    'Tenacious',
+    'Attentive',
+    'Steady',
+    'Bold',
+    'Proud',
+    'Reliable',
+    'Fearless',
+    'Lively',
+    'Self-assured',
+    'Cautious',
+    'Eager',
+    'Good-natured',
+    'Spirited',
+    'Companionable',
+    'Even Tempered',
+    'Rugged',
+    'Fierce',
+    'Refined',
+    'Joyful',
+    'Agile',
+    'Amiable',
+    'Excitable',
+    'Determined',
+    'Self-confidence',
+    'Hardy',
+    'Calm',
+    'Good-tempered',
+    'Watchful',
+    'Hard-working',
+    'Feisty',
+    'Cheerful',
+    'Sensitive',
+    'Easygoing',
+    'Adaptable',
+    'Trusting',
+    'Lovable',
+    'Territorial',
+    'Keen',
+    'Familial',
+    'Rational',
+    'Bright',
+    'Quick',
+    'Powerful',
+    'Gay',
+    'Stable',
+    'Quiet',
+    'Inquisitive',
+    'Strong',
+    'Sociable',
+    'Patient',
+    'Suspicious',
+    'Great-hearted',
+    'Merry',
+    'Vocal',
+    'Tolerant',
+    'Mischievous',
+    'People-Oriented',
+    'Bossy',
+    'Cunning',
+    'Athletic',
+    'Boisterous',
+    'Cooperative',
+    'Trustworthy',
+    'Self-important',
+    'Respectful',
+    'Thoughtful',
+    'Generous',
+    'Cat-like',
+    'Sturdy',
+    'Benevolent',
+    'Clever',
+    'Bubbly',
+    'Opinionated',
+    'Aggressive',
+    'Extroverted',
+    'Charming',
+    'Unflappable',
+    'Spunky',
+    'Diligent',
+    'Willful',
+    'Fast',
+    'Vigilant']
