@@ -13,11 +13,21 @@ function Home () {
     return (
         <div>
             <input type='text' placeholder="Ingresa una Raza"/>
-            <div>
+            <ul>
                 {
-                    allDogs.forEach(e => console.log(e))
+                    allDogs.map(e => {
+                        console.log(e)
+                        return (
+                            <div key={e.name}>
+                                <img src={e.image} />
+                                <li>{e.name}</li>
+                                <li>Temperamento: {e.temperament}</li>
+                                <li>Peso: {e.weight}Kg.</li>
+                            </div>
+                        )
+                    })
                 }
-            </div>
+            </ul>
         </div>
     )
 }

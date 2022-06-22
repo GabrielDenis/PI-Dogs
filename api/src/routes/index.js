@@ -1,3 +1,5 @@
+import { getApiInfo, getDbInfo, getAllInfo } from './utils'
+
 const { Router } = require('express');
 require('dotenv').config();
 // Importar todos los routers;
@@ -11,60 +13,48 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
-
-const getApiInfo = async () => {
-    const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
-    const apiInfo = apiUrl.data.map(e => {
-        return {
-            id: e.id,
-            name: e.name,
-            height: e.height,
-            weight: e.weight,
-            lifeSpan: e.life_span,
-            temperament: e.temperament
-        }
-    })
-    return apiInfo
-}
-
-const getDbInfo = async () => {
-    return await Dog.findAll({
-        include: {
-            model: Temperament,
-            attributes: ['name'],
-            through: {
-                attributes: [],
-            },
-        }
-    })
-}
-
-const getAllInfo = async () => {
-    const apiInfo = await getApiInfo()
-    const dataBaseInfo = await getDbInfo()
-    const allInfo = apiInfo.concat(dataBaseInfo)
-    return allInfo
-}
-
 router.get('/dogs', async (req, res) => {
     const name = req.query.name
     let allDogs = await getAllInfo()
-    console.log(name);
+
+    let filtered = allDogs.map(e => {
+
+        return {
+            image: e.image,
+            name: e.name,
+            weight: e.weight,
+            temperament: e.temperaments ? e.temperaments.map(e => e.name) : e.temperament,
+        }
+    })
+
     if (name) {
-        let dogName = await allDogs.filter(e => e.name.toLowerCase().includes(name.toLowerCase()))
+        let dogName = await filtered.filter(e => e.name.toLowerCase().includes(name.toLowerCase()))
         dogName.length ? 
         res.status(200).send(dogName) : 
         res.status(404).send("Dog not Found")
     } else {
-        res.status(200).send(allDogs)
+        res.status(200).send(filtered)
     }
 })
 
 router.get('/dogs/:id', async (req, res) => {
     const dogId = parseInt(req.params.id)
     let allDogs = await getAllInfo()
+
+    let filtered = allDogs.map(e => {
+        return {
+            id: e.id,
+            image: e.image,
+            name: e.name,
+            temperament: e.temperament,
+            height: e.height,
+            weight: e.weight,
+            lifeSpan: e.lifeSpan,
+        }
+    })
+
     if (dogId) {
-        let dog = await allDogs.filter(e => e.id === dogId)
+        let dog = await filtered.filter(e => e.id === dogId)
         dog ?
         res.status(200).send(dog) :
         res.status(400).send("Dog not Found")
@@ -77,6 +67,7 @@ router.post('/dogs', async (req, res) => {
     let { name, height, weight, lifeSpan, createdInDb, temperament } = req.body
 
     let createdDog = await Dog.create ({
+        image: "https://imgur.com/CHyz9Wo",
         name,
         height,
         weight,
@@ -86,12 +77,12 @@ router.post('/dogs', async (req, res) => {
     })
 
     let temperamentDb = await Temperament.findAll({
-        where: {name: temperament}
+        where: {name: temperament.map(e => e)}
     })
-    
+
     createdDog.addTemperament(temperamentDb)
 
-    res.status(200).send("Dog succefully created")
+    res.status(200).send("Dog succesfully created")
 })
 
 router.get('/temperaments', async (req, res) => {
@@ -107,137 +98,12 @@ router.get('/temperaments', async (req, res) => {
 
     for (let tempe of temperaments) {
         Temperament.findOrCreate({
-            where: {name: tempe}
+            where: {name: tempe.toLowerCase()}
         })
     }
 
-    res.status(200).send("Temperaments succesfully created")
+    let temperamentsList = await Temperament.findAll()
+    res.status(200).send(temperamentsList)
 })
 
 module.exports = router;
-
-
-const array = ['Stubborn',
-    'Curious',
-    'Playful',
-    'Adventurous',
-    'Active',
-    'Fun-loving',
-    'Aloof',
-    'Clownish',
-    'Dignified',
-    'Independent',
-    'Happy',
-    'Wild',
-    'Hardworking',
-    'Dutiful',
-    'Outgoing',
-    'Friendly',
-    'Alert',
-    'Confident',
-    'Intelligent',
-    'Courageous',
-    'Loyal',
-    'Brave',
-    'Docile',
-    'Responsive',
-    'Composed',
-    'Receptive',
-    'Faithful',
-    'Loving',
-    'Protective',
-    'Trainable',
-    'Responsible',
-    'Energetic',
-    'Gentle',
-    'Affectionate',
-    'Devoted',
-    'Assertive',
-    'Dominant',
-    'Strong Willed',
-    'Obedient',
-    'Reserved',
-    'Kind',
-    'Sweet-Tempered',
-    'Tenacious',
-    'Attentive',
-    'Steady',
-    'Bold',
-    'Proud',
-    'Reliable',
-    'Fearless',
-    'Lively',
-    'Self-assured',
-    'Cautious',
-    'Eager',
-    'Good-natured',
-    'Spirited',
-    'Companionable',
-    'Even Tempered',
-    'Rugged',
-    'Fierce',
-    'Refined',
-    'Joyful',
-    'Agile',
-    'Amiable',
-    'Excitable',
-    'Determined',
-    'Self-confidence',
-    'Hardy',
-    'Calm',
-    'Good-tempered',
-    'Watchful',
-    'Hard-working',
-    'Feisty',
-    'Cheerful',
-    'Sensitive',
-    'Easygoing',
-    'Adaptable',
-    'Trusting',
-    'Lovable',
-    'Territorial',
-    'Keen',
-    'Familial',
-    'Rational',
-    'Bright',
-    'Quick',
-    'Powerful',
-    'Gay',
-    'Stable',
-    'Quiet',
-    'Inquisitive',
-    'Strong',
-    'Sociable',
-    'Patient',
-    'Suspicious',
-    'Great-hearted',
-    'Merry',
-    'Vocal',
-    'Tolerant',
-    'Mischievous',
-    'People-Oriented',
-    'Bossy',
-    'Cunning',
-    'Athletic',
-    'Boisterous',
-    'Cooperative',
-    'Trustworthy',
-    'Self-important',
-    'Respectful',
-    'Thoughtful',
-    'Generous',
-    'Cat-like',
-    'Sturdy',
-    'Benevolent',
-    'Clever',
-    'Bubbly',
-    'Opinionated',
-    'Aggressive',
-    'Extroverted',
-    'Charming',
-    'Unflappable',
-    'Spunky',
-    'Diligent',
-    'Willful',
-    'Fast',
-    'Vigilant']
