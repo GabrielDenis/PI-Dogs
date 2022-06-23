@@ -1,3 +1,7 @@
+const axios = require('axios');
+const { API_KEY } = process.env;
+const { Dog, Temperament } = require('../db.js');
+
 const getApiInfo = async () => {
     const apiUrl = await axios.get(`https://api.thedogapi.com/v1/breeds?api_key=${API_KEY}`)
     const apiInfo = apiUrl.data.map(e => {
@@ -33,4 +37,4 @@ const getAllInfo = async () => {
     return allInfo
 }
 
-module.exports = { getApiInfo, getDbInfo, getAllInfo }
+module.exports = { getApiInfo, getAllInfo }

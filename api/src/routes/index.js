@@ -1,12 +1,9 @@
-import { getApiInfo, getDbInfo, getAllInfo } from './utils'
-
+const { getApiInfo, getAllInfo } = require ('./utils')
 const { Router } = require('express');
 require('dotenv').config();
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
-const axios = require('axios');
 const { Dog, Temperament } = require('../db.js');
-const { API_KEY } = process.env;
 
 const router = Router();
 
@@ -79,7 +76,7 @@ router.post('/dogs', async (req, res) => {
     let temperamentDb = await Temperament.findAll({
         where: {name: temperament.map(e => e)}
     })
-
+    console.log(temperamentDb);
     createdDog.addTemperament(temperamentDb)
 
     res.status(200).send("Dog succesfully created")

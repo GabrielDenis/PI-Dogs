@@ -1,10 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector } from 'react-redux'
+import React from 'react'
+import { useSelector } from 'react-redux'
+import Dog from '../Dog/Dog'
 
 const Dogs = () => {
-  return (
-    <div>Dogs</div>
-  )
+    let props = useSelector(state => state.allDogs)
+    return (
+        <div className="dogs" key={props.name}>
+            {props.map(d => <Dog
+                image={d.image}
+                name={d.name}
+                temperament={d.temperament}
+                weight={d.weight}
+            />)}    
+        </div>
+    )
 }
 
 export default Dogs
