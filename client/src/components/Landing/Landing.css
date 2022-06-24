@@ -1,16 +1,46 @@
-* {
+.container {
+    background-image: url('../../images/landing_image.jpg');
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+}
+
+.title {
     margin: 0;
-    padding: 0
+    padding-top: 300px;
+    padding-left: 700px;
+    font-size: 55px;
+    font-family: Alex Brush;
+    color: #D34D30 ;
 }
 
-div {
-    position: relative;
+.btn {
+    border: 1px solid black;
+    border-radius: 40px;
+    margin-top: 150px;
+    margin-left: 900px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+    font-size: 40px;
+    font-family: Dawning of a New Day;
+    letter-spacing: 2px;
 }
 
-img {
-    
+.btn:hover {
+    cursor: pointer;
+    border-style: none;
+    background-color: #ED7358;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
 }
 
-button {
+.landingImg {
     position: absolute;
+    height: 70px;
+    width: 700px;
+    top: 330px;
+    left: 1000px;
 }

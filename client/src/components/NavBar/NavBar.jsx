@@ -15,7 +15,9 @@ const NavBar = () => {
                 <img src={image} alt='logo'/>
             </Link>
             <div>
-                <input type="text" placeholder="Ingresa una raza de perro"/>
+                <h5>Buscar por Raza:</h5>
+                <input type="text" placeholder="Nombre de la Raza"/>
+                <input type="submit" value="Buscar"></input>
             </div>
             <div>
                 <div>
@@ -51,9 +53,9 @@ const NavBar = () => {
                         <option value="max">Mayor Peso</option>
                     </select>
                 </div>
-                {/* <div>
+                <div>
                     <Link to="/home/create">Crea tu propia Raza!</Link>
-                </div> */}
+                </div>
             </div>
         </div>
     )

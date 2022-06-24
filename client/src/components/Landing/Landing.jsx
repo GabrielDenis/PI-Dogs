@@ -3,6 +3,8 @@ import { useDispatch} from 'react-redux'
 import { getAllDogs, getAllTemperaments } from "../../redux/actions/index.js";
 import img from '../../images/landing_image.jpg'
 import { Link } from 'react-router-dom'
+import './Landing.css'
+import subimg from '../../images/subrayado.png'
 
 function Landing () {
 
@@ -14,9 +16,12 @@ function Landing () {
     },[dispatch])   
 
     return (
-        <div>
-            <img src={img} alt="Chihuahua"/>
-            <Link to='/home'>Bienvenido a la App de Chuchos</Link>
+        <div className='container'>
+            <div>
+                <h2 className="title">Bienvenido a la App de Chuchos</h2>
+                <img className="landingImg" src={subimg} alt="subrayado"/>
+            </div>
+            <Link to='/home'><button className="btn">Ingresar</button></Link>
         </div>
     )
 }

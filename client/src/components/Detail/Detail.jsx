@@ -9,12 +9,11 @@ const Detail = (props) => {
     const id = props.match.params.id
     
     useEffect(() => {
-        console.log("first")
         dispatch(getDetails(id))
     },[dispatch, id]) 
-    console.log(dogDetail)
+
     return (
-        <div className='dog'>
+        <div className='dog' key={dogDetail[0].id}>
             <div className="dogImage">
                 <img src={dogDetail[0].image} alt={dogDetail[0].name}/>
             </div>
