@@ -1,8 +1,18 @@
-import React from "react";
-import img from '../../images/istockphoto-809869206-612x612.jpg'
+import React, { useEffect } from "react";
+import { useDispatch} from 'react-redux'
+import { getAllDogs, getAllTemperaments } from "../../redux/actions/index.js";
+import img from '../../images/landing_image.jpg'
 import { Link } from 'react-router-dom'
 
 function Landing () {
+
+    const dispatch = useDispatch();
+    
+    useEffect(() => {
+        dispatch(getAllDogs())
+        dispatch(getAllTemperaments())
+    },[dispatch])   
+
     return (
         <div>
             <img src={img} alt="Chihuahua"/>

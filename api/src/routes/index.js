@@ -17,6 +17,7 @@ router.get('/dogs', async (req, res) => {
     let filtered = allDogs.map(e => {
 
         return {
+            id: e.id,
             image: e.image,
             name: e.name,
             weight: e.weight,
@@ -64,7 +65,6 @@ router.post('/dogs', async (req, res) => {
     let { name, height, weight, lifeSpan, createdInDb, temperament } = req.body
 
     let createdDog = await Dog.create ({
-        image: "https://imgur.com/CHyz9Wo",
         name,
         height,
         weight,

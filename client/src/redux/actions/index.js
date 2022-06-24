@@ -9,3 +9,21 @@ export const getAllDogs = () => {
         })
     }
 }
+
+export const getAllTemperaments = () => {
+    return async function (dispatch) {
+        return axios("http://localhost:3001/temperaments")
+        .then(tempe => {
+            dispatch({ type:GET_ALL_TEMPERAMENTS, payload: tempe.data })
+        })
+    }
+}
+
+export const getDetails = (id) => {
+    return async function (dispatch) {
+        return axios(`http://localhost:3001/dogs/${id}`)
+        .then(details => {
+            dispatch({ type:GET_DOG_DETAIL, payload: details.data })
+        })
+    }
+}
