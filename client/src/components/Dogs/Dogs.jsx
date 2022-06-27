@@ -1,8 +1,9 @@
 import React from 'react'
 import Dog from '../Dog/Dog'
+import './Dogs.css'
 
 const Dogs = (dogs) => {
-    console.log(dogs);
+
     return (
         <div className="dogs" key={dogs.id}>
             {dogs.currentDog[0].map(d => {

@@ -12,7 +12,7 @@ function App() {
       <React.Fragment>
         <Route exact path='/' component = {Landing}/>
         <Route exact path='/home' component = {Home}/>
-        {/* <Route exact path='/home/:id' component = {Detail}/> */}
+        <Route exact path='/home/:id' component = {Detail}/>
         <Route exact path='/home/create' component = {Create}/>
       </React.Fragment>
     </div>

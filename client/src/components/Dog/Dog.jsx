@@ -1,27 +1,25 @@
 import React from "react";
-import imageDb from "../../images/default_dog.jpg"
 import { Link } from "react-router-dom"
+import './Dog.css'
 
 const Dog = (props) => {
   let { id, image, name, temperament, weight } = props
-  let validTemperament, validImage
+  let validTemperament
 
   if (Array.isArray(temperament)) {
     validTemperament = temperament.map(e => {
       let a = e.charAt(0).toUpperCase() + e.slice(1)
       return a
     }).join(", ")
-    validImage = imageDb
   } else {
     validTemperament = temperament
-    validImage = image
   }
 
   return (
-    <Link to={`/home/${id}`}>
+    <Link className="dogLink" to={`/home/${id}`}>
       <div className='dog'>
-        <div className="dogImage">
-          <img src={validImage} alt={name}/>
+        <div>
+          <img className="dogImage" src={image} alt={name}/>
         </div>
         <div className="dogInfo">
           <h2 className="dogName">{name}</h2>

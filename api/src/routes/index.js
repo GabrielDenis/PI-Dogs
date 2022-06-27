@@ -62,10 +62,12 @@ router.get('/dogs/:id', async (req, res) => {
 })
 
 router.post('/dogs', async (req, res) => {
+    let imageDefault = '../../../client/src/images/default_dog.jpg'
     let { name, height, weight, lifeSpan, createdInDb, temperament } = req.body
 
     let createdDog = await Dog.create ({
         name,
+        image: req.body.image ? req.body.image : imageDefault,
         height,
         weight,
         lifeSpan,
@@ -76,7 +78,7 @@ router.post('/dogs', async (req, res) => {
     let temperamentDb = await Temperament.findAll({
         where: {name: temperament.map(e => e)}
     })
-    console.log(temperamentDb);
+    
     createdDog.addTemperament(temperamentDb)
 
     res.status(200).send("Dog succesfully created")

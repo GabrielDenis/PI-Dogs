@@ -1,0 +1,27 @@
+.dog {
+    border: 1px solid black;
+    border-radius: 20px;
+    background-color: #F9AF9F;
+}
+
+.dogLink {
+    text-decoration: none;
+}
+
+.dogImage {
+    width: 200px;
+    height: 200px;
+    border-radius: 30px;
+}
+
+.dogInfo {
+    font-family: Alex Brush;
+    color: #D34D30 ;
+}
+
+.dog:hover {
+    background-color: #ED7358;
+    -webkit-transition: background-color 200ms linear;
+    -ms-transition: background-color 200ms linear;
+    transition: background-color 200ms linear;
+}

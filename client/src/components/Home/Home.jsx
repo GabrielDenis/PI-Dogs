@@ -3,10 +3,11 @@ import { useSelector } from "react-redux";
 import Dogs from "../Dogs/Dogs.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import Paging from "../Paging/Paging"
+import './Home.css'
 
 function Home () {
 
-    const allDogs = useSelector(state => state.allDogs)
+    const { allDogs } = useSelector(state => state)
 
     const [currentPage, setCurrentPage] = useState(1)
     const [dogsPerPage, setDogsPerPage] = useState(8)
@@ -20,7 +21,7 @@ function Home () {
     }
 
     return (
-        <div>
+        <div className="homeContainer">
             <NavBar/>
             <Paging
                 dogsPerPage={dogsPerPage}
