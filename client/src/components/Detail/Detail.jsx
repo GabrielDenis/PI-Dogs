@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux'
 import { getDetails } from "../../redux/actions/index.js";
+import img from '../../images/default_dog.jpg'
 
 const Detail = (props) => {
 
@@ -11,11 +12,11 @@ const Detail = (props) => {
     useEffect(() => {
         dispatch(getDetails(id))
     },[dispatch, id]) 
-    console.log(dogDetail)
+
     return (
         <div className='dog' key={dogDetail[0]?.id}>
             <div className="dogImage">
-                <img src={dogDetail[0]?.image} alt={dogDetail[0]?.name}/>
+                <img src={dogDetail[0]?.image ? dogDetail[0].image : img } alt={dogDetail[0]?.name}/>
             </div>
             <div className="dogInfo">
                 <h2 className="dogName">{dogDetail[0]?.name}</h2>

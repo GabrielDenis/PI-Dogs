@@ -36,15 +36,19 @@ router.get('/dogs', async (req, res) => {
 })
 
 router.get('/dogs/:id', async (req, res) => {
-    const dogId = parseInt(req.params.id)
+    let dogId = req.params.id
     let allDogs = await getAllInfo()
 
+    if (dogId.length < 16) {
+        dogId = parseInt(dogId)
+    }
+    
     let filtered = allDogs.map(e => {
         return {
             id: e.id,
             image: e.image,
             name: e.name,
-            temperament: e.temperament,
+            temperament: e.temperaments ? e.temperaments.map(e => e.name) : e.temperament,
             height: e.height,
             weight: e.weight,
             lifeSpan: e.lifeSpan,
@@ -62,19 +66,19 @@ router.get('/dogs/:id', async (req, res) => {
 })
 
 router.post('/dogs', async (req, res) => {
-    let imageDefault = '../../../client/src/images/default_dog.jpg'
-    let { name, height, weight, lifeSpan, createdInDb, temperament } = req.body
+    console.log(req.body)
+    let { name, image, height, weight, lifeSpan, createdInDb, temperament } = req.body
 
     let createdDog = await Dog.create ({
         name,
-        image: req.body.image ? req.body.image : imageDefault,
+        image,
         height,
         weight,
         lifeSpan,
         createdInDb,
         temperament
     })
-
+    console.log(createdDog)
     let temperamentDb = await Temperament.findAll({
         where: {name: temperament.map(e => e)}
     })

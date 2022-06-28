@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch} from 'react-redux'
 import { getAllDogs, getAllTemperaments } from "../../redux/actions/index.js";
-import img from '../../images/landing_image.jpg'
 import { Link } from 'react-router-dom'
 import './Landing.css'
 import subimg from '../../images/subrayado.png'

@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, CREATE_DOG, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER } from '../actions/actionTypes'
+import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER } from '../actions/actionTypes'
 
 const initialState = {
     allDogs: [],

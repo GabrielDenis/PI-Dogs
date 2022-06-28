@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, CREATE_DOG, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER } from './actionTypes'
+import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER } from './actionTypes'
 const axios = require('axios')
 
 export const getAllDogs = () => {
@@ -47,5 +47,11 @@ export const temperamentsFilter = (payload) => {
 export const orderDogs = (orderType) => {
     return async function (dispatch) {
         return dispatch({ type:ORDER_DOGS, payload: orderType })
+    }
+}
+
+export const createDog = (payload) => {
+    return async function() {
+        return axios.post(`http://localhost:3001/dogs`, payload)
     }
 }
