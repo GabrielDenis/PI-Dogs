@@ -1,4 +1,7 @@
 .dogs {
     display: flex;
     flex-wrap: wrap;
+    padding: 0px 100px 0px 100px;
+    gap: 60px;
+    justify-content: center;
 }

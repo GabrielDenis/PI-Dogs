@@ -1,4 +1,63 @@
+.navBarContainer {
+    display: flex;
+    background-color: rgba(100, 100, 100, 0.9);
+    padding-top: 10px;
+    justify-content: space-between;
+}
+
+.filterContainer {
+    display: flex;
+}
+
 .logo {
-    width: 50px;
-    height: 50px;
+    width: 100px;
+    height: 100px;
+}
+
+.searchName {
+    font-family: Aclonica;
+}
+
+.filterTemp {
+    font-family: Aclonica;
+    margin-right: 20px;
+}
+
+.filterDB {
+    font-family: Aclonica;
+    margin-right: 20px;  
+}
+
+.filterRace {
+    font-family: Aclonica;
+    margin-right: 20px;
+}
+
+.filterAD{
+    font-family: Aclonica;
+    margin-right: 20px;
+}
+
+.create {
+    font-family: Aclonica;
+    margin: 0px 20px 0px 40px;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 10px 5px 10px 5px;
+    align-self: center;
+    color: #D6D6D6;
+    text-shadow: 0 0 2px black;
+}
+
+.create:hover {
+    border: none;
+    background-color: #464646;
+    -webkit-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+.createLink {
+    text-decoration: none;
+    color: #D6D6D6;
 }

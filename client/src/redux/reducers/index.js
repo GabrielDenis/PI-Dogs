@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER } from '../actions/actionTypes'
+import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER, CREATED_IN_DB, RACE_FILTER } from '../actions/actionTypes'
 
 const initialState = {
     allDogs: [],
@@ -38,7 +38,6 @@ const rootReducer = (state = initialState, action) => {
                 let array = [];
 
                 for (const dog of dogs) {
-                    console.log(dog)
                     if (dog.temperament && !Array.isArray(dog.temperament)) {
                         dog.temperament = dog.temperament.toLowerCase().split(", ")
                     }
@@ -56,7 +55,27 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allDogs: dogsFiltered
-            } 
+            }
+        case RACE_FILTER:
+            const races = state.dogsFilter
+            const raceFiltered = action.payload === "allRace" ? races : forInRace()
+
+            function forInRace() {
+                let newRaces = []
+
+                for (const race of races) {
+                    if (race.name === action.payload) {
+                        newRaces.push(race)
+                    }
+                }
+
+                return newRaces
+            }
+
+            return{
+                ...state,
+                allDogs: raceFiltered
+            }
         case ORDER_DOGS:
             var sortFunction
             switch (action.payload) {
@@ -122,6 +141,39 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allDogs: state.allDogs.sort(sortFunction)
+            }
+        case CREATED_IN_DB:
+            const createdInDb = state.dogsFilter
+            switch (action.payload) {
+                case "todos":
+                    return {
+                        ...state,
+                        allDogs: createdInDb
+                    }
+                case "db":
+                    let newArray = []
+                    for (const i in createdInDb) {
+                        if (typeof createdInDb[i].id === "string") {
+                            newArray.push(createdInDb[i])
+                        }
+                    }
+                    return {
+                        ...state,
+                        allDogs: newArray
+                    }
+                case "api":
+                    let array = []
+                    for (const i in createdInDb) {
+                        if (typeof createdInDb[i].id !== "string") {
+                            array.push(createdInDb[i])
+                        }
+                    }
+                    return {
+                        ...state,
+                        allDogs: array
+                    }
+                default:
+                    return
             }
         default:
             return {...state}

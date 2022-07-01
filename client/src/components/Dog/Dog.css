@@ -1,7 +1,11 @@
 .dog {
     border: 1px solid black;
     border-radius: 20px;
-    background-color: #F9AF9F;
+    background-color: rgba(100, 100, 100, 0.8);
+    text-align: center;
+    width: 300px;
+    height: auto;
+    padding: 10px 10px 0px 10px
 }
 
 .dogLink {
@@ -9,18 +13,19 @@
 }
 
 .dogImage {
-    width: 200px;
-    height: 200px;
+    width: 300px;
+    height: 300px;
     border-radius: 30px;
 }
 
 .dogInfo {
-    font-family: Alex Brush;
-    color: #D34D30 ;
+    font-family: Aclonica;
+    color: #D6D6D6;
+    text-shadow: 0 0 4px black;
 }
 
 .dog:hover {
-    background-color: #ED7358;
+    background-color: #464646;
     -webkit-transition: background-color 200ms linear;
     -ms-transition: background-color 200ms linear;
     transition: background-color 200ms linear;
