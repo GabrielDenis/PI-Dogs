@@ -56,50 +56,50 @@ const NavBar = () => {
                 <img className='logo' src={image} alt='logo'/>
             </Link>
             <div className='searchName'>
-                <h5>Buscar por Raza:</h5>
-                <input type="text" placeholder='Busca una raza!' value={name} onChange={(e) => handleOnChange(e)}/>
-                <button type='submit' onClick={(e) => handleClick(e)}>Buscar</button>
-                <button type='submit' onClick={(e) => handleEmpty(e)}>Vaciar</button>
+                <h5>Search by name:</h5>
+                <input type="text" placeholder='Name...' value={name} onChange={(e) => handleOnChange(e)}/>
+                <button type='submit' onClick={(e) => handleClick(e)}>Search</button>
+                <button type='submit' onClick={(e) => handleEmpty(e)}>Empty</button>
             </div>
             <div className='filterContainer'>
                 <div className='filterTemp'>
-                    <h5>Filtrar por Temperamento:</h5>
+                    <h5>Filter by temperament:</h5>
                     <select onChange={(e) => handleOnChangeTemperaments(e)}>
-                        <option value="all">Todos los Temperamentos</option>
+                        <option value="all">All temperaments</option>
                         {propsTemperaments?.map(e => {
                             return <option value={e.name} key={e.id}>{e.name}</option>
                         })}
                     </select>
                 </div>
                 <div className='filterDB'>
-                    <h5>Filtrar por Creados en Base de Datos:</h5>
+                    <h5>Created by:</h5>
                     <select onChange={(e) => handleFilterOrigin(e)}>
-                        <option value="todos">Todos los Perros</option>
-                        <option value="db">Base de Datos</option>
+                        <option value="todos">All dogs</option>
+                        <option value="db">Data Base</option>
                         <option value="api">Api</option>
                     </select>
                 </div>
                 <div className='filterRace'>
-                    <h5>Ordenar por Raza:</h5>
+                    <h5>Order by Race:</h5>
                     <select onChange={(e) => handleOnChangeRace(e)}>
-                        <option value="allRace">Todas las Raza</option>
+                        <option value="allRace">All races</option>
                         {propsDogs?.map(e => {
                             return <option value={e.name} key={e.name}>{e.name}</option>
                         })}
                     </select>
                 </div>
                 <div className='filterAD'>
-                    <h5>Orden por:</h5>
+                    <h5>Order by:</h5>
                     <select onChange={(e) => handleOnChangeFilter(e)}>
-                        <option value="all">Sin orden</option>
-                        <option value="ascendente">Ascendente</option>
-                        <option value="descendente">Descendente</option>
-                        <option value="min">Menor Peso</option>
-                        <option value="max">Mayor Peso</option>
+                        <option value="all">None</option>
+                        <option value="ascendente">A - Z</option>
+                        <option value="descendente">Z - A</option>
+                        <option value="min">Avarage Minimum Weight</option>
+                        <option value="max">Avarage Maximum Weight</option>
                     </select>
                 </div>
                 <div className='create'>
-                    <Link className='createLink' to="/create">Crea tu propia Raza!</Link>
+                    <Link className='createLink' to="/create">Create your own Race!</Link>
                 </div>
             </div>
         </div>

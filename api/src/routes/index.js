@@ -66,7 +66,6 @@ router.get('/dogs/:id', async (req, res) => {
 })
 
 router.post('/dogs', async (req, res) => {
-    console.log(req.body)
     let { name, image, height, weight, lifeSpan, createdInDb, temperament } = req.body
 
     let createdDog = await Dog.create ({
@@ -78,7 +77,7 @@ router.post('/dogs', async (req, res) => {
         createdInDb,
         temperament
     })
-    console.log(createdDog)
+    
     let temperamentDb = await Temperament.findAll({
         where: {name: temperament.map(e => e)}
     })

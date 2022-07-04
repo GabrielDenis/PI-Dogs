@@ -27,10 +27,12 @@ const Detail = (props) => {
                 </div>
                 <div className="dogInfo">
                     <h2 className="dogName">{dogDetail[0]?.name}</h2>
-                    <h4 className="dogTemperament">It's temperaments are: {dogDetail[0]?.temperament}</h4>
+                    <h4 className="dogTemperament">It's temperaments are: {
+                        Array.isArray(dogDetail[0]?.temperament) ? dogDetail[0].temperament.map(e => e + " ") : dogDetail[0]?.temperament
+                    }</h4>
                     <h4 className="dogHeight">Height: between {dogDetail[0]?.height} Cm.</h4>
                     <h4 className="dogWeight">Weight: between {dogDetail[0]?.weight} Kg.</h4>
-                    <h4 className="dogLifeSpan">Life Span: between {dogDetail[0]?.lifeSpan} Years.</h4>
+                    <h4 className="dogLifeSpan">Life Span: between {dogDetail[0]?.lifeSpan}</h4>
                 </div>
             </div>
         </div>

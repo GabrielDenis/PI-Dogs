@@ -81,6 +81,8 @@ const rootReducer = (state = initialState, action) => {
             switch (action.payload) {
                 case 'ascendente':
                     sortFunction = function (a, b) {
+                        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1)
+                        b.name = b.name.charAt(0).toUpperCase() + b.name.slice(1)
                         if (a.name < b.name) {
                             return -1
                         }
@@ -92,6 +94,8 @@ const rootReducer = (state = initialState, action) => {
                     break;
                 case 'descendente':
                     sortFunction = function (a, b) {
+                        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1)
+                        b.name = b.name.charAt(0).toUpperCase() + b.name.slice(1)
                         if (a.name > b.name) {
                             return -1
                         }
@@ -106,8 +110,15 @@ const rootReducer = (state = initialState, action) => {
                         let awA = a.weight.split(" - ")
                         let awB = b.weight.split(" - ")
 
-                        let mediaWa =  (awA[0] + awA[1]) / 2
-                        let mediaWb =  (awB[0] + awB[1]) / 2
+                        let mediaWa, mediaWb
+
+                        if (awA[0] === "NaN") {awA[0] = "21"}
+                        if (awB[0] === "NaN") {awB[0] = "21"}
+                        if (!awA[1]) {awA.push(awA[0])}
+                        if (!awB[1]) {awB.push(awB[0])}
+
+                        mediaWa =  (awA[0] + awA[1]) / 2
+                        mediaWb =  (awB[0] + awB[1]) / 2
 
                         if (mediaWa < mediaWb) {
                             return -1
@@ -123,8 +134,15 @@ const rootReducer = (state = initialState, action) => {
                         let awA = a.weight.split(" - ")
                         let awB = b.weight.split(" - ")
 
-                        let mediaWa =  (awA[0] + awA[1]) / 2
-                        let mediaWb =  (awB[0] + awB[1]) / 2
+                        let mediaWa, mediaWb
+
+                        if (awA[0] === "NaN") {awA[0] = "21"}
+                        if (awB[0] === "NaN") {awB[0] = "21"}
+                        if (!awA[1]) {awA.push(awA[0])}
+                        if (!awB[1]) {awB.push(awB[0])}
+
+                        mediaWa =  (awA[0] + awA[1]) / 2
+                        mediaWb =  (awB[0] + awB[1]) / 2
 
                         if (mediaWa > mediaWb) {
                             return -1

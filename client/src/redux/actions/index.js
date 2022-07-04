@@ -34,6 +34,7 @@ export const getDogByName = (name) => {
         .then(names => {
             dispatch({ type:GET_DOG_BY_NAME, payload: names.data })
         })
+        .catch(err => alert("No dogs found"))
     }
 }
 
