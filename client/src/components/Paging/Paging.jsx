@@ -15,7 +15,7 @@ const Paging = ({dogsPerPage, allDogs, paging}) => {
                 { pageNumbers &&
                 pageNumbers.map(number =>(
                     <li className='listElement' key={number}>
-                        <a onClick={() => paging(number)}>{number}</a>
+                        <span onClick={() => paging(number)}>{number}</span>
                     </li>
                 ))}
             </ul>

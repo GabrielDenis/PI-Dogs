@@ -6,7 +6,7 @@ import { getDogByName, orderDogs, temperamentsFilter, createdInDb, raceFilter } 
 import './NavBar.css'
 
 
-const NavBar = () => {
+const NavBar = ({ paging }) => {
 
     let propsTemperaments = useSelector(state => state.allTemperaments)
     let propsDogs = useSelector(state => state.allDogs)
@@ -22,37 +22,43 @@ const NavBar = () => {
     const handleClick = (e) => {
         e.preventDefault()
         dispatch(getDogByName(name))
+        paging(1)
     }
 
     const handleEmpty = (e) => {
         e.preventDefault()
         setName('')
         dispatch(getDogByName(''))
+        paging(1)
     }
 
     //filtro por temperamento
     const handleOnChangeTemperaments = (e) => {
         dispatch(temperamentsFilter(e.target.value))
+        paging(1)
     }
 
     //filtro raza
     const handleOnChangeRace = (e) => {
         dispatch(raceFilter(e.target.value))
+        paging(1)
     }
 
     //filtro alfabetico
     const handleOnChangeFilter = (e) => {
         dispatch(orderDogs(e.target.value))
+        paging(1)
     }
     
     //Filtro DB
     const handleFilterOrigin = (e) => {
         dispatch(createdInDb(e.target.value))
+        paging(1)
     }
 
     return (
         <div className='navBarContainer'>
-            <Link to={"/home"}>
+            <Link to={"/"}>
                 <img className='logo' src={image} alt='logo'/>
             </Link>
             <div className='searchName'>

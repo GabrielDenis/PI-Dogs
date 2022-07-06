@@ -6,7 +6,6 @@ import image from '../../images/logo.png'
 import './Create.css'
 
 const regExLetters = /^[a-zA-ZÀ-ÿ\u00f1\u00d1]+(\s*[a-zA-ZÀ-ÿ\u00f1\u00d1]*)*[a-zA-ZÀ-ÿ\u00f1\u00d1]+$/;
-const regExNumbers = /^[0-9]*$/;
 
 const validateSimples = ({ name, temperament }) => {
     const errors = {}
@@ -75,6 +74,8 @@ function Create () {
             ...newDog,
             [e.target.name]: e.target.value
         }))
+
+        setErrorsMinAndMax(validateMinAndMax({}))
     }
 
     function handleNewWH (e) {

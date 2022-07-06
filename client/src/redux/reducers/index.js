@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER, CREATED_IN_DB, RACE_FILTER } from '../actions/actionTypes'
+import { GET_ALL_DOGS, GET_DOG_BY_NAME, GET_DOG_DETAIL, GET_ALL_TEMPERAMENTS, ORDER_DOGS, TEMP_FILTER, CREATED_IN_DB, RACE_FILTER, FILTER_BY_HEIGHT, RESET_DETAIL } from '../actions/actionTypes'
 
 const initialState = {
     allDogs: [],
@@ -46,6 +46,7 @@ const rootReducer = (state = initialState, action) => {
                         if (e === action.payload) {
                             array.push(dog)
                         }
+                        return e
                     })
                 }
 
@@ -192,6 +193,30 @@ const rootReducer = (state = initialState, action) => {
                     }
                 default:
                     return
+            }
+        case FILTER_BY_HEIGHT:
+            const heights = state.dogsFilter
+
+            let newArrayHeight = []
+
+            for (const i in heights) {
+                console.log(heights[i])
+                const heightSplit = heights[i].height.split(" - ")
+                const promedio = (heightSplit[0] + heightSplit[1]) / 2
+
+                if (promedio >= 50) {
+                    newArrayHeight.push(heights[i])
+                }
+            }
+
+            return {
+                ...state,
+                allDogs: newArrayHeight
+            }
+        case RESET_DETAIL:
+            return {
+                ...state,
+                dogDetail: {}
             }
         default:
             return {...state}

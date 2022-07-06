@@ -1,16 +1,25 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllDogs, getAllTemperaments } from "../../redux/actions/index.js";
 import Dogs from "../Dogs/Dogs.jsx";
 import NavBar from "../NavBar/NavBar.jsx";
 import Paging from "../Paging/Paging"
+import Loading from '../Loading/Loading'
 import './Home.css'
 
 function Home () {
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getAllDogs())
+        dispatch(getAllTemperaments())
+    },[dispatch])  
+
     const { allDogs } = useSelector(state => state)
 
     const [currentPage, setCurrentPage] = useState(1)
-    const [dogsPerPage, setDogsPerPage] = useState(8)
+    const [dogsPerPage] = useState(8)
 
     const indexOfLastDog = currentPage * dogsPerPage
     const indexOfFirstDog = indexOfLastDog - dogsPerPage
@@ -20,9 +29,13 @@ function Home () {
         setCurrentPage(pageNumber)
     }
 
-    return (
+    return allDogs.length === 0 ? (
+        <Loading/>
+    ) : (
         <div className="homeContainer">
-            <NavBar/>
+            <NavBar
+                paging={paging}
+            />
             <Paging
                 dogsPerPage={dogsPerPage}
                 allDogs={allDogs.length}

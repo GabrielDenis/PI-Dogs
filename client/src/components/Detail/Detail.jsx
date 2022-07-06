@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector} from 'react-redux'
-import { getDetails } from "../../redux/actions/index.js";
+import { getDetails, resetDetail } from "../../redux/actions/index.js";
 import img from '../../images/default_dog.jpg'
 import './Detail.css'
 import { Link } from "react-router-dom";
 import image from '../../images/logo.png'
+import Loading from '../Loading/Loading'
 
 const Detail = (props) => {
 
@@ -14,9 +15,14 @@ const Detail = (props) => {
     
     useEffect(() => {
         dispatch(getDetails(id))
+        return () => {
+            dispatch(resetDetail())
+        }
     },[dispatch, id]) 
 
-    return (
+    return !dogDetail[0] ? (
+        <Loading/>
+    ) : (
         <div className='dogDetail' key={dogDetail[0]?.id}>
             <Link to={"/home"}>
                 <img className='logo' src={image} alt='logo'/>

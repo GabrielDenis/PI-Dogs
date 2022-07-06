@@ -1,18 +1,9 @@
-import React, { useEffect } from "react";
-import { useDispatch} from 'react-redux'
-import { getAllDogs, getAllTemperaments } from "../../redux/actions/index.js";
+import React from "react";
 import { Link } from 'react-router-dom'
 import './Landing.css'
 import subimg from '../../images/subrayado.png'
 
-function Landing () {
-
-    const dispatch = useDispatch();
-    
-    useEffect(() => {
-        dispatch(getAllDogs())
-        dispatch(getAllTemperaments())
-    },[dispatch])   
+function Landing () { 
 
     return (
         <div className='container'>
