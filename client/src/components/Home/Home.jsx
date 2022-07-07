@@ -41,7 +41,10 @@ function Home () {
                 allDogs={allDogs.length}
                 paging={paging}
             />
-            <Dogs currentDog={currentDog}/>
+            {allDogs[0] === "empty" ? (
+                <h1>Dogs not Found</h1>
+            ) : <Dogs currentDog={currentDog}/>
+            }
         </div>
     )
 }

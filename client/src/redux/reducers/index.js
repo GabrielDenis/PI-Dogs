@@ -82,12 +82,10 @@ const rootReducer = (state = initialState, action) => {
             switch (action.payload) {
                 case 'ascendente':
                     sortFunction = function (a, b) {
-                        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1)
-                        b.name = b.name.charAt(0).toUpperCase() + b.name.slice(1)
-                        if (a.name < b.name) {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
                             return -1
                         }
-                        if (a.name > b.name) {
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
                             return 1
                         }
                         return 0
@@ -95,12 +93,10 @@ const rootReducer = (state = initialState, action) => {
                     break;
                 case 'descendente':
                     sortFunction = function (a, b) {
-                        a.name = a.name.charAt(0).toUpperCase() + a.name.slice(1)
-                        b.name = b.name.charAt(0).toUpperCase() + b.name.slice(1)
-                        if (a.name > b.name) {
+                        if (a.name.toLowerCase() > b.name.toLowerCase()) {
                             return -1
                         }
-                        if (a.name < b.name) {
+                        if (a.name.toLowerCase() < b.name.toLowerCase()) {
                             return 1
                         }
                         return 0
@@ -176,6 +172,10 @@ const rootReducer = (state = initialState, action) => {
                             newArray.push(createdInDb[i])
                         }
                     }
+
+                    if (newArray.length === 0) {
+                        newArray.push("empty")
+                    }
                     return {
                         ...state,
                         allDogs: newArray
@@ -192,7 +192,9 @@ const rootReducer = (state = initialState, action) => {
                         allDogs: array
                     }
                 default:
-                    return
+                    return {
+                        ...state
+                    }
             }
         case FILTER_BY_HEIGHT:
             const heights = state.dogsFilter
@@ -200,7 +202,6 @@ const rootReducer = (state = initialState, action) => {
             let newArrayHeight = []
 
             for (const i in heights) {
-                console.log(heights[i])
                 const heightSplit = heights[i].height.split(" - ")
                 const promedio = (heightSplit[0] + heightSplit[1]) / 2
 

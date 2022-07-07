@@ -57,12 +57,11 @@ router.get('/dogs/:id', async (req, res) => {
 
     if (dogId) {
         let dog = await filtered.filter(e => e.id === dogId)
-        dog ?
+        dog.length !== 0 ?
         res.status(200).send(dog) :
-        res.status(400).send("Dog not Found")
-    } else {
-        res.status(404).send("ID doesn't exists")
+        res.status(404).send("Dog not Found")
     }
+    
 })
 
 router.post('/dogs', async (req, res) => {

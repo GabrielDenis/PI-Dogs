@@ -24,15 +24,24 @@ const validateMinAndMax = ({ minH, maxH, minW, maxW, minLS, maxLS }) => {
 
     if(!minH) errors.heightMin = "*A minimum height is required"
     if(!maxH) errors.heightMax = "*A maximum height is required"
-    if(minH > maxH) errors.heightMin = "*Minimum value must be smaller than maximum value"
+    if(parseInt(minH) > parseInt(maxH)) errors.heightMin = "*Minimum value must be smaller than maximum value"
+    if(minH.toString().includes("e") || maxH.toString().includes("e")) errors.heightMax = "*Height must be only numbers"
+    if(minH.toString().includes("E") || maxH.toString().includes("E")) errors.heightMax = "*Height must be only numbers"
+    if(minH < 0 || maxH < 0) errors.heightMax = "*Numbers must be positive"
 
     if(!minW) errors.weightMin = "*A minimum weight is required"
     if(!maxW) errors.weightMax = "*A maximum weight is required"
-    if(minW > maxW) errors.weightMin = "*Minimum value must be smaller than maximum value"
+    if(parseInt(minW) > parseInt(maxW)) errors.weightMin = "*Minimum value must be smaller than maximum value"
+    if(minW.toString().includes("e") || maxW.toString().includes("e")) errors.weightMax = "*Weight must be only numbers"
+    if(minW.toString().includes("E") || maxW.toString().includes("E")) errors.weightMax = "*Weight must be only numbers"
+    if(minW < 0 || maxW < 0) errors.weightMax = "*Numbers must be positive"
 
     if(!minLS) errors.lifeSpanMin = "*A minimum life span is required"
     if(!maxLS) errors.lifeSpanMax = "*A maximum life span is required"
-    if(minLS > maxLS) errors.lifeSpanMin = "*Minimum value must be smaller than maximum value"
+    if(parseInt(minLS) > parseInt(maxLS)) errors.lifeSpanMin = "*Minimum value must be smaller than maximum value"
+    if(minLS.toString().includes("e") || maxLS.toString().includes("e")) errors.lifeSpanMax = "*Life span must be only numbers"
+    if(minLS.toString().includes("E") || maxLS.toString().includes("E")) errors.lifeSpanMax = "*Life span must be only numbers"
+    if(minLS < 0 || maxLS < 0) errors.lifeSpanMax = "*Numbers must be positive"
 
     return errors
 }
@@ -47,12 +56,12 @@ function Create () {
 
     const [tempe, setTempe] = useState('')
     const [wehe, setWeHe] = useState({
-        minH: '',
-        maxH: '',
-        minW: '',
-        maxW: '',
-        minLS: '',
-        maxLS: '',
+        minH: "",
+        maxH: "",
+        minW: "",
+        maxW: "",
+        minLS: "",
+        maxLS: "",
     })
     const [newDog, setNewDog] = useState({
         name: '',
@@ -75,7 +84,9 @@ function Create () {
             [e.target.name]: e.target.value
         }))
 
-        setErrorsMinAndMax(validateMinAndMax({}))
+        setErrorsMinAndMax(validateMinAndMax({
+            ...wehe
+        }))
     }
 
     function handleNewWH (e) {
@@ -142,8 +153,6 @@ function Create () {
         if (errorsSimple.length !== 0 && errorsMinAndMax !== 0) {
             alert("You have errors!, Please fix them.")
         } else {
-
-            console.log("dog",newDog)
             dispatch(createDog(newDog))
             alert("Dog created!")
             setNewDog({
